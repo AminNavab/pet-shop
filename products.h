@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 class Products{
 	private:
@@ -19,3 +20,16 @@ class Products{
 		const char* getNames_pro() { return names_pro; }
 		const char* getCategory_pro() { return category_pro; }
 };
+void Products::input_data_pro(int z){
+	num_pro = z;
+	cout<<"Enter Name Product: ";
+	cin>> num_pro;
+	cout << "Enter Category Product: ";
+	cin >> category_pro;
+	cout << "Enter Price Product: ";
+	cin >> Price;
+	cout <<"\n\t       [The Product entered]   \n";
+}
+void Products::output_data_pro(){
+	cout << left << setw(12) << getNum_pro() << setw(14) << getCategory_pro() << setw(15) << getNames_pro() << right << setw(12) <<  getPrice_pro() << endl;
+}
