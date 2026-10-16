@@ -41,4 +41,35 @@ void Customers::drawdep(int x){
 void Customers::output_data_cus(){
 		cout << left << setw(10) << num_cus << setw(11) << names_cus << right << setw(7)<< Deposit_cus << endl;
 	}
+//-----------------------------------------------------------------------------------
+void add_customars(int c_num){
+	Customers c;
+	bool flag = true;
+	ifstream inFile("Customer.dat",ios::in | ios::binary );
+
+	while(inFile.read((char *) &c, sizeof(Customers))){
+		if(c.getnum_cus() == c_num)
+			flag =false;
+	}
+	inFile.close();
+	ofstream outFile("Customer.dat",ios::binary | ios::out | ios::app );
+	
+	if(flag){
+		Customers newc;
+		newc.input_data_cus(c_num);
+		outFile.write((char *) &newc, sizeof(Customers));
+	}
+	else
+		cout << "\n\t   [Customer entered]" << endl;	
+	outFile.close();
+	ifstream lnFile("Customer.dat",ios::in | ios::binary );
+	cout<<"\n";
+	cout<< "\t[Number" << setw(8) << "Name" << setw(15) << "Amount]\n";
+	cout<<"\n";
+	while(lnFile.read((char *) &c, sizeof(Customers))){
+		if (c.getnum_cus()==c_num)
+			c.output_data_cus();
+	}
+	lnFile.close();
+}
 
