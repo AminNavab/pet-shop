@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 class Customers {
@@ -20,6 +21,7 @@ class Customers {
 		void output_data_cus();
 		void set_names_cus(const string &c) { set_names_cus(c.c_str()); }
 		const char* get_names_cus() { return names_cus; }
+	
 };
 void Customers::input_data_cus(int num){
 		num_cus = num;
@@ -39,3 +41,4 @@ void Customers::drawdep(int x){
 void Customers::output_data_cus(){
 		cout << left << setw(10) << num_cus << setw(11) << names_cus << right << setw(7)<< Deposit_cus << endl;
 	}
+
