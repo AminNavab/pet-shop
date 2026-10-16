@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 class Products{
 	private:
@@ -32,4 +33,30 @@ void Products::input_data_pro(int z){
 }
 void Products::output_data_pro(){
 	cout << left << setw(12) << getNum_pro() << setw(14) << getCategory_pro() << setw(15) << getNames_pro() << right << setw(12) <<  getPrice_pro() << endl;
+}
+//-----------------------------------------------------------------------
+void new_product(){
+	Products p;
+	bool flag = true;
+	int P_num;
+	ifstream inFile("products.dat",ios::in | ios::binary );
+
+	cout << "Enter Your product Number: ";
+	cin >> P_num;
+	while(inFile.read((char *) &p, sizeof(Products))){
+		if(p.getNum_pro() == P_num)
+			flag = false;
+	}
+	inFile.close();
+	ofstream outFile("products.dat",ios::binary | ios::out | ios::app );
+
+	if(flag){
+		Products newp;
+		newp.input_data_pro(P_num);
+		outFile.write((char *) &newp, sizeof(Products));
+	}
+	else
+		cout << "\n\t[Product entered]\n" << endl;
+
+	outFile.close();
 }
