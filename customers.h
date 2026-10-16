@@ -89,3 +89,33 @@ void customers_list(){
 	}
 	inFile.close();
 }
+void drawdep_amount(int customerNum,int price){
+	int x=0;
+	Customers c;
+	fstream File("Customer.dat",ios::binary | ios::in | ios::out );
+	if(!File){
+		cout << "File could not be opened . Press Key";
+		return;
+	}
+	bool found = false;
+	while(File.read((char *) &c, sizeof(Customers))){
+		if (c.getnum_cus() == customerNum) { 
+            found = true;
+			if(c.getDeposit_cus()>= price){
+				c.drawdep(price);
+				long long unsigned int n=(-1)* sizeof(c);
+				File.seekp(n,ios::cur);
+				File.write((char *) &c, sizeof(Customers));
+				cout<<"\n";
+				cout<< "\t[Number" << setw(8) << "Name" << setw(15) << "Amount]\n";
+				cout<<"\n";
+				c.output_data_cus();
+			}
+		break;
+		}
+	}
+	if (!found) {
+        cout << "\n\t [Customer not found] \n";
+    }
+	File.close();
+}
