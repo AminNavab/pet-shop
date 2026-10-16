@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 using namespace std;
 
 class Orders {
@@ -25,3 +26,11 @@ public:
     int getNum_pro() { return num_pro; }
     int getPrice(){return Price;}
 };
+void Orders::setOrder(int num_cus, int num_pro, const char* name_cus, const char* name_pro, const char* category_, int price_){
+		num_cus = num_cus;
+        num_pro = num_pro;
+        strncpy(names_cus, name_cus, 29); names_cus[29] = '\0';
+        strncpy(names_pro, name_pro, 29); names_pro[29] = '\0';
+        strncpy(category, category_, 29); category[29] = '\0';
+        Price = price_;
+    }
