@@ -119,3 +119,29 @@ void drawdep_amount(int customerNum,int price){
     }
 	File.close();
 }
+void increase_amount(int num){
+	int x=0;
+	Customers c;
+	fstream File("Customer.dat",ios::binary | ios::in | ios::out );
+	if(!File){
+		cout << "File could not be opened . Press Key";
+		return;
+	}
+	while(File.read((char *) &c, sizeof(Customers))){
+		if(c.getnum_cus()==num){
+			cout <<"\n\tIncrease Amount !!!! \n";
+			cout <<"\n\tEnter The amount you want to increase account: ";
+			cin >> x;
+			c.increasedep(x);
+			long long unsigned int n=(-1)* sizeof(c);
+			File.seekp(n,ios::cur);
+			File.write((char *) &c, sizeof(Customers));
+			cout<<"\n\t[Amount Updated] \n";
+			cout<<"\n";
+			cout<< "\t[Number" << setw(8) << "Name" << setw(15) << "Amount]\n";
+			cout<<"\n";
+			c.output_data_cus();
+	       }
+	}
+	File.close();
+}
