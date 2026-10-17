@@ -73,3 +73,19 @@ void add_customars(int c_num){
 	lnFile.close();
 }
 
+void customers_list(){
+	Customers c;
+	ifstream inFile("Customer.dat",ios::binary | ios::in);
+	if(!inFile){
+		cout<<"File could not be opened . Press Key";
+		return;
+	}
+	cout<<"\n"<< setw(24) << "Customers list\n";
+	cout<<"\n";
+	cout<< "\t[Number" << setw(8) << "Name" << setw(15) << "Amount]\n";
+	cout<<"\n";
+	while(inFile.read((char *) &c, sizeof(Customers))){
+		c.output_data_cus();
+	}
+	inFile.close();
+}
