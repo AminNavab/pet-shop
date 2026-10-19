@@ -1,6 +1,9 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <cstring>
+#include "customers.h"
+#include "products.h"
 using namespace std;
 
 class Orders {
@@ -34,3 +37,59 @@ void Orders::setOrder(int num_cus, int num_pro, const char* name_cus, const char
         strncpy(category, category_, 29); category[29] = '\0';
         Price = price_;
     }
+//----------------------------------------------------------------------
+int buy_products(int customerNum, int productNum) {
+    Products p;
+    Orders order;
+    ofstream outputFile("ordon.dat", ios::binary | ios::app);
+    ifstream inputFile("products.dat", ios::binary);
+
+    Customers c;
+    ifstream customerFile("Customer.dat", ios::binary);
+    string cName ;
+    int cDeposit = 0;
+    bool foundC = false;
+    
+    while (customerFile.read((char*)&c, sizeof(Customers))) {
+        if (c.getnum_cus() == customerNum) {
+            cName = c.get_names_cus();
+            cDeposit = c.getDeposit_cus();
+            foundC = true;
+            break;
+        }
+    }
+    customerFile.close();
+    int foundPrice = 0;
+    string pName ;
+    string pCategory ;
+    bool foundP = false;
+    
+    while (inputFile.read((char*)&p, sizeof(Products))) {
+        if (p.getNum_pro() == productNum) {
+            foundPrice = p.getPrice_pro();
+            pName = p.getNames_pro();
+            pCategory = p.getCategory_pro();
+            foundP = true;
+            break;
+        }
+    }
+    inputFile.close();
+
+    if (foundP && foundC && cDeposit >= foundPrice) {
+        order.setOrder(customerNum, productNum, cName.c_str(), pName.c_str(), pCategory.c_str(), foundPrice);
+        outputFile.write((char*)&order, sizeof(Orders));
+        cout << "\n\t[Order placed successfully]\n";
+        outputFile.close();
+        drawdep_amount(customerNum, foundPrice);
+        return foundPrice;
+    } else {
+        outputFile.close();
+        if (!foundC) 
+			cout << "\n\t[Customer not found]\n";
+        else if (!foundP) 
+			cout << "\n\t[Product not found]\n";
+        else 
+			cout << "\n\t[you have not enough money]\n";
+        return 0;
+    }
+}
