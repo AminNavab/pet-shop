@@ -80,3 +80,20 @@ void Delete_product(int n){
 	rename("newproducts.dat","products.dat");
 	cout<<"\n\t[product Deleted]";
 }
+
+void products_list(){
+	Products p;
+	ifstream inFile("products.dat",ios::binary );
+	if(!inFile){
+		cout<<"File could not be opened . Press Key";
+		return;
+	}
+	cout<<"\n"<< setw(34) << "Products List\n";
+	cout<<"\n";
+	cout<< "\t[Number" << setw(14)  << "Category" << setw(10) << "Name" << setw(23) << "Price]\n";
+	cout<<"\n";
+	while(inFile.read((char *) &p, sizeof(Products))){
+		p.output_data_pro();
+	}
+	inFile.close();
+}
