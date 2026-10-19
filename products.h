@@ -60,3 +60,23 @@ void new_product(){
 
 	outFile.close();
 }
+void Delete_product(int n){
+	Products p;
+	ofstream outFile("newproducts.dat",ios::binary);
+	ifstream inFile("products.dat",ios::binary);
+	if(!inFile){
+		cout<<"File could not be open . Press Key";
+		return;
+	}
+	inFile.seekg(0,ios::beg);
+	while(inFile.read((char *) &p, sizeof(Products))){
+		if(p.getNum_pro() != n){
+			outFile.write((char *) &p, sizeof(Products));
+		}
+	}
+	inFile.close();
+	outFile.close();
+	remove("products.dat");
+	rename("newproducts.dat","products.dat");
+	cout<<"\n\t[product Deleted]";
+}
