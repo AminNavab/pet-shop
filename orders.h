@@ -127,3 +127,81 @@ void order_list(int CustomerNum) {
     }
     inFile.close();
 }
+
+void Finder() {
+	int n;
+	Products p;
+	do {
+		ifstream inFile("products.dat",ios::in | ios::binary);
+		if (!inFile) {
+            cout << "File could not be opened." << endl;
+            continue;
+        }
+		int t=0,r=0,v=0;
+		int f=1,k=1,q=1;
+		cout << "\nFinding by (1:Name / 2:Category / 3:Price / 4:exit) \n";
+		cout << "Choice number: "; 
+		cin >> n;
+		switch(n)
+		{
+		case 1: {
+    		string N;
+    		cout << "Name of Product: ";
+    		cin >> N;
+    		while(inFile.read((char *) &p, sizeof(Products))){
+        		if(string(p.getNames_pro()) == N){
+            		if (f==1){
+                		cout << "\n";
+                		cout << "\t[Number" << setw(14)  << "Category" << setw(10) << "Name" << setw(23) << "Price]\n";
+                		cout << "\n";
+            		}
+            		p.output_data_pro();
+            		f++;
+        		}
+    		}
+    	break;
+    }
+		case 2: {
+    		string c;
+    		cout << "Which category: ";
+    		cin >> c;
+    		while(inFile.read((char *) &p, sizeof(Products))){
+        		if(string(p.getCategory_pro())==c){
+            		if (k==1){
+                		cout << "\n";
+                		cout << "\t[Number" << setw(14)  << "Category" << setw(10) << "Name" << setw(23) << "Price]\n";
+                		cout << "\n";
+            		}
+            		p.output_data_pro();
+            		k++;
+        		}
+    		}
+    	break;
+    }
+		case 3:
+			cout << "Finding by Price from: ";
+			cin >> r;
+			cout << "until: ";
+			cin >> v;
+			while(inFile.read((char *) &p, sizeof(Products))){
+				if((p.getPrice_pro() >= r) && (p.getPrice_pro() <= v)){
+					if (q==1){
+						cout<<"\n";
+						cout<< "\t[Number" << setw(14)  << "Category" << setw(10) << "Name" << setw(23) << "Price]\n";
+						cout<<"\n";
+					}
+					p.output_data_pro();
+					q++;
+				}
+			}
+			break;
+		case 4:
+			break;
+		default:
+			cout << "Choice number: ";
+        	break;
+		}
+		inFile.close();
+	}
+	while (n!=4);
+}
