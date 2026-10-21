@@ -93,3 +93,37 @@ int buy_products(int customerNum, int productNum) {
         return 0;
     }
 }
+
+void order_list(int CustomerNum) {
+    ifstream inFile("ordon.dat", ios::binary);
+    if (!inFile) {
+        cout << "No orders found. Press Key";
+        return;
+    }
+    Orders order;
+    bool found = false;
+    cout << "\n\t" << setw(45) << "Orders List for Customer: " << CustomerNum << endl;
+    cout << "----------------------------------------------------------------\n";
+    cout << left
+        << setw(9) << "Num_cus"
+        << setw(16) << "Customer" 
+        << setw(16) << "Product"   
+        << setw(16) << "Category"  
+        << setw(8) << "Price" << endl;
+    cout << "----------------------------------------------------------------\n";
+    
+    while (inFile.read((char*)&order, sizeof(Orders))) {
+        if (order.getNum_cus() == CustomerNum) {  
+            cout<< setw(9) << order.getNum_cus()
+                << setw(16) << order.getNames_cus()  
+                << setw(16) << order.getNames_pro()  
+                << setw(16) << order.getcategory()  
+                << setw(8) <<order.getPrice()  << endl;
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "\n\t[No orders found for this customer]\n";
+    }
+    inFile.close();
+}
