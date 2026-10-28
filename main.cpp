@@ -17,9 +17,16 @@ int main() {
 			cout << "\n \t 4. Customers List ";
 			cout << "\n \t 5. Exit           ";
 			cout << "\n\n\tChoice Number: ";
-			cin >> t;
-			switch(t)
-			{
+			if (!(cin >> t)) {
+    cout << "Invalid input! Please enter a number.\n";
+
+    cin.clear();
+    cin.ignore(10000, '\n');
+
+    continue;
+}
+
+switch (t) {
 			case 1:
 				new_product();
 				break;
@@ -56,7 +63,14 @@ int main() {
 			cout << "\n \t 4. Product purchase & Orders List";
 			cout << "\n \t 5. Exit                          ";
 			cout << "\n\n\tChoice Number: ";
-	        cin >> t;
+	        if (!(cin >> t)) {
+    cout << "Invalid input! Please enter a number.\n";
+
+    cin.clear();
+    cin.ignore(10000, '\n');
+
+    continue;
+}
 			switch(t)
 			{
 			case 1:

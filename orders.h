@@ -94,7 +94,6 @@ int buy_products(int customerNum, int productNum) {
         outputFile.write((char*)&order, sizeof(Orders));
         cout << "\n\t[Order placed successfully]\n";
         outputFile.close();
-        drawdep_amount(customerNum, foundPrice);
         return foundPrice;
     } else {
         outputFile.close();
