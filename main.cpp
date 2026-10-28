@@ -1,7 +1,5 @@
 
 #include <iostream>
-#include "products.h"
-#include "customers.h"
 #include "orders.h"
 using namespace std;
 int main() {
@@ -9,7 +7,7 @@ int main() {
 	int t,h,a,b,c;
 	cout << "Which user do you want use?(1:Customer / 2:Seller) ";
 	cin >> user;
-	if("Seller"||"seller"||"1"==user){
+	if("Seller"==user||"seller"==user||"1"==user){
 		do
 		{
 			cout<<endl;
@@ -46,7 +44,7 @@ int main() {
 	    while(t!=5);
 	    return 0;
     }
-    else if(user=="Customer"||"customer"||"2"){
+    else if(user=="Customer"||user=="customer"||user=="2"){
     	cout << "\n\tEnter your Customer number: ";
 		cin >> h;
 		add_customars(h);
@@ -91,6 +89,9 @@ int main() {
 		while(t!=5);
 	    return 0;
     }
+	else{
+		cout<<"Invalid user type"<<endl;
+	}
 }
 
 
