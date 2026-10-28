@@ -15,7 +15,7 @@ private:
     char category[30];
     int Price;
 public:
-    void setOrder(int num_cus, int num_pro, const char* name_cus, const char* name_pro, const char* _category, int _price) ;
+    void setOrder(int customer_Name, int product_Name, const char* name_cus, const char* name_pro, const char* _category, int _price) ;
     void setNum_cus(int cn){num_cus=cn;}
     void setNum_pro(int pn){num_pro=pn;}
 	void setPrice(int p){Price=p;}
@@ -29,14 +29,28 @@ public:
     int getNum_pro() { return num_pro; }
     int getPrice(){return Price;}
 };
-void Orders::setOrder(int num_cus, int num_pro, const char* name_cus, const char* name_pro, const char* category_, int price_){
-		num_cus = num_cus;
-        num_pro = num_pro;
-        strncpy(names_cus, name_cus, 29); names_cus[29] = '\0';
-        strncpy(names_pro, name_pro, 29); names_pro[29] = '\0';
-        strncpy(category, category_, 29); category[29] = '\0';
-        Price = price_;
-    }
+void Orders::setOrder(
+    int customerNum,
+    int productNum,
+    const char* customerName,
+    const char* productName,
+    const char* categoryName,
+    int price
+) {
+    num_cus = customerNum;
+    num_pro = productNum;
+
+    strncpy(names_cus, customerName, 29);
+    names_cus[29] = '\0';
+
+    strncpy(names_pro, productName, 29);
+    names_pro[29] = '\0';
+
+    strncpy(category, categoryName, 29);
+    category[29] = '\0';
+
+    Price = price;
+}
 //----------------------------------------------------------------------
 int buy_products(int customerNum, int productNum) {
     Products p;

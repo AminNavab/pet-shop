@@ -24,7 +24,7 @@ class Products{
 void Products::input_data_pro(int z){
 	num_pro = z;
 	cout<<"Enter Name Product: ";
-	cin>> num_pro;
+	cin>> names_pro;
 	cout << "Enter Category Product: ";
 	cin >> category_pro;
 	cout << "Enter Price Product: ";
