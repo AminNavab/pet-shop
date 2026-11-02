@@ -234,4 +234,70 @@ At a high level, a customer purchase follows this sequence:
 7. The purchase amount is deducted from the customer's balance in `Customer.dat`.
 8. The customer's order history is displayed.
 
-If a required recor
+If a required record cannot be found or the balance is insufficient, the purchase is not completed.
+
+## Implementation Notes and Current Limitations
+
+The following details are important for anyone running, reviewing, or extending the current source code:
+
+- **Console interface:** All interaction takes place through terminal prompts and numbered menus.
+- **No password authentication:** Customer access is based on a customer number. Seller mode is selected through the initial user choice; this is not a secure authentication system.
+- **Role-selection prompt mismatch:** In the current `main.cpp`, the displayed prompt says `1:Customer / 2:Seller`, but the actual branches route `1` to Seller mode and `2` to Customer mode. The accepted text inputs are `Seller`/`seller` and `Customer`/`customer`, respectively. This inconsistency should be corrected in the source or clearly accounted for when testing.
+- **Single-word text input:** Names and categories are read using formatted stream extraction (`cin >>`), so values containing spaces are not handled as full multi-word strings.
+- **Integer prices and balances:** Product prices and account balances are represented as integers.
+- **Local file storage:** There is no SQL or remote database integration.
+- **Basic validation:** The application includes some menu-input and purchase checks, but it is not a production-grade validation or error-handling system.
+- **No concurrent access handling:** The data files are intended for a single local application session, not simultaneous multi-user access.
+
+## Possible Future Improvements
+
+Ideas for future development include:
+
+- Correct and standardize the initial role-selection prompt.
+- Add secure seller and customer authentication.
+- Replace raw binary object serialization with a safer, versioned storage format or a database such as SQLite.
+- Validate all numeric input, including negative prices and balance changes.
+- Support names and categories containing spaces.
+- Add product editing and richer inventory operations.
+- Add order cancellation, order identifiers, timestamps, and more detailed receipts.
+- Improve error reporting for missing, unreadable, or unwritable data files.
+- Separate declarations and implementations into `.h` and `.cpp` files.
+- Add automated tests for customer, product, and purchase workflows.
+
+## Learning Objectives
+
+This project can be useful for practicing:
+
+- C++ class design and encapsulation.
+- Separating application responsibilities across source files.
+- Functions, loops, conditional statements, and switch-based menus.
+- Reading from and writing to files.
+- Binary file operations and record persistence.
+- Searching and filtering records.
+- Implementing a basic purchase workflow with account-balance checks.
+
+## Contributing
+
+Contributions, suggestions, and bug reports are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Test the application with representative inputs.
+5. Open a pull request describing the changes.
+
+For bugs or feature suggestions, you can also open an issue in the repository.
+
+## License
+
+No license file is currently included in this repository. Unless a license is added, the project should be treated as having all rights reserved; do not assume that reuse, modification, or redistribution is permitted.
+
+---
+
+<div align="center">
+
+**Developed by [AminNavab](https://github.com/AminNavab)**
+
+[Repository](https://github.com/AminNavab/pet-shop)
+
+</div>
