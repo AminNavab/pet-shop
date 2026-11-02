@@ -115,4 +115,123 @@ cd pet-shop
 
 Using GCC or MinGW:
 
-`
+```bash
+g++ -std=c++11 main.cpp -o pet-shop
+```
+
+Using Clang:
+
+```bash
+clang++ -std=c++11 main.cpp -o pet-shop
+```
+
+On Windows with MinGW, run the generated executable with:
+
+```bash
+pet-shop.exe
+```
+
+On Linux or macOS:
+
+```bash
+./pet-shop
+```
+
+If your compiler uses a different executable name or requires a platform-specific command, adjust the command accordingly.
+
+## Usage Guide
+
+After launching the program, it asks you to select a user workflow. The application then displays the corresponding menu.
+
+### Seller workflow
+
+Seller mode provides the following menu actions:
+
+| Menu option | Action |
+|---|---|
+| 1 | Add a new product |
+| 2 | Display all products |
+| 3 | Delete a product by product number |
+| 4 | Display all customers |
+| 5 | Exit seller mode |
+
+When adding a product, enter its product number, name, category, and price when prompted. Product numbers are checked against existing product records.
+
+When deleting a product, enter the product number of the item to remove.
+
+### Customer workflow
+
+Customer mode first asks for a customer number.
+
+- If the number is not already present in the customer data file, the program asks for a customer name and an initial account amount and creates a record.
+- If the number already exists, the existing customer record is used.
+
+The customer menu provides these actions:
+
+| Menu option | Action |
+|---|---|
+| 1 | Display the product catalogue |
+| 2 | Search for products |
+| 3 | Increase the account balance |
+| 4 | Purchase a product and display the customer's order history |
+| 5 | Exit customer mode |
+
+#### Searching for products
+
+The search menu supports three criteria:
+
+1. **Name** — find products whose stored name matches the entered name.
+2. **Category** — find products in the entered category.
+3. **Price range** — find products whose prices fall between the entered minimum and maximum values.
+
+The current implementation uses exact text comparisons for name and category searches. Search terms should therefore match the stored text.
+
+#### Adding account funds
+
+Choose the balance-increase option and enter the amount to add when prompted. The updated customer record is written back to the customer data file.
+
+#### Making a purchase
+
+Choose the purchase option, review the product catalogue, and enter the product number to buy.
+
+The application checks that:
+
+- The customer record exists.
+- The selected product exists.
+- The customer's recorded balance is at least the product price.
+
+If these checks pass, an order record is saved and the purchase amount is deducted from the customer's balance. The program then displays the customer's order history.
+
+## Data Storage
+
+The application uses local binary files. These files are created or updated when the corresponding operations are performed.
+
+| File | Stored information |
+|---|---|
+| `products.dat` | Product records |
+| `Customer.dat` | Customer records and account balances |
+| `ordon.dat` | Purchase/order records |
+| `newproducts.dat` | Temporary file used while deleting a product |
+
+### Important notes
+
+- Run the application from a directory where it can create and write these files.
+- The data files are generated at runtime; they are not part of the source-code structure shown above.
+- Keep the `.dat` files if you want to preserve the records between runs.
+- Deleting these files removes the corresponding locally stored data.
+- The current implementation uses binary representations of C++ objects. These files should be treated as application-specific data, not as portable interchange formats.
+
+## How the Purchase Flow Works
+
+At a high level, a customer purchase follows this sequence:
+
+1. The customer selects the purchase option.
+2. The product catalogue is displayed.
+3. The customer enters a product number.
+4. The application looks up the customer and product records.
+5. It checks whether the account balance is sufficient.
+6. If the checks pass, it appends an order record to `ordon.dat`.
+7. The purchase amount is deducted from the customer's balance in `Customer.dat`.
+8. The customer's order history is displayed.
+
+If a required recor
